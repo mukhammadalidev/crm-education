@@ -1,0 +1,26 @@
+.nav-active{
+  transition: all 0.3s ease;
+}
+.nav-active:hover {
+font-weight: bold;
+font-size: 18px;
+background: #141625;
+box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+cursor: pointer;  
+
+}
+.search-input::placeholder{
+  background: #272E4B;
+  color: white;
+}
+/* .header {
+  background: #141625;
+  color: white;
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+} */
+/* 
+fontWeight: 'bold' ,fontSize: '18px',background: '#141625',boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',cursor: 'pointer'
+*/
