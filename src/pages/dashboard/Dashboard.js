@@ -5,10 +5,16 @@ import { Content, Header } from 'antd/es/layout/layout'
 import Link from 'antd/es/typography/Link'
 import { columns, data } from '../../data'
 import { SearchOutlined, UserOutlined, MoneyCollectOutlined, ShoppingFilled, WalletOutlined, PlusOutlined } from '@ant-design/icons'
+import { Option } from 'antd/es/mentions'
 const { Text } = Typography;
 function Dashboard() {
-
      const [isModalOpen, setIsModalOpen] = useState(false);
+      const [selectedValue, setSelectedValue] = useState(undefined);
+
+      const handleChange = (value) => {
+        console.log(`Selected: ${value}`);
+        setSelectedValue(value); // Store the selected value in your state
+      };
       const showModal = () => {
         setIsModalOpen(true);
       };
@@ -20,10 +26,17 @@ function Dashboard() {
       };
     console.log(data);
 
+   
     const onSubmit = (e) => {
         e.preventDefault();
-        console.log('e', e);
-        
+        console.log('e', e.target[0].value);
+        console.log('e', e.target[1].value);
+        console.log('e', e.target[2].value);
+        console.log('e', e.target[3].value);
+        console.log('group', selectedValue);
+        console.log('e', e.target[5].value);
+        console.log('e', e.target[6].value);
+
         // Handle form submission logic here
       };
     
@@ -194,16 +207,22 @@ function Dashboard() {
         onOk={handleOk}
         onCancel={handleCancel}
       >
-          <form>
+          <form onSubmit={onSubmit}>
                    <Input placeholder="Name" style={{ marginBottom: 16 }} />
         <DatePicker placeholder="Date of Birth" style={{ marginBottom: 16, width: '100%' }} />
         <Input placeholder="Telegram ID" style={{ marginBottom: 16 }} />
         <Input placeholder="Course" style={{ marginBottom: 16 }} />
-        <Select placeholder="Select Group" style={{ width: '100%', marginBottom: 16 }}>
-          <Select.Option value="A1">A1</Select.Option>
-          <Select.Option value="B1">B1</Select.Option>
-          <Select.Option value="C1">C1</Select.Option>
-        </Select>
+        <Select
+          defaultValue="lucy"
+          style={{ width: 120 }}
+          onChange={handleChange}
+          options={[
+            { value: 'jack', label: 'Jack' },
+            { value: 'lucy', label: 'Lucy' },
+            { value: 'disabled', label: 'Disabled', disabled: true },
+            { value: 'Yiminghe', label: 'yiminghe' },
+          ]}
+      />
         
        Active:
         <Slider
@@ -215,7 +234,7 @@ function Dashboard() {
     </Space.Compact>
     <br />
     <br />
-        <Button type="primary" onClick={handleOk}>
+        <Button type="primary" htmlType='submit' style={{ backgroundColor: '#5D5FEF', borderColor: '#5D5FEF', float: 'right' }}>
           Submit
         </Button>
           </form>
