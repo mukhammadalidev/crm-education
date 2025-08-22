@@ -24,3 +24,42 @@ cursor: pointer;
 /* 
 fontWeight: 'bold' ,fontSize: '18px',background: '#141625',boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',cursor: 'pointer'
 */
+
+.table-row {
+  background: #141625;
+  color: white;
+  transition: all 0.3s ease;
+}
+.table-row:hover {
+  background: #272E4B;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
+/* Jadval fon rangi */
+.ant-table {
+  background-color: #0c7adb; /* pastel ko‘k */
+  border-radius: 12px;
+}
+
+/* Jadval sarlavhalari */
+.ant-table-thead > tr > th {
+  background-color: #2C3050 !important; 
+  color: white !important;
+  font-weight: bold;
+  border-color: #141625 !important;
+}
+
+/* Qatorlar */
+.ant-table-tbody > tr > td {
+  background-color: #2F3352 !important; 
+  border-color: #141625 !important;
+  
+  color: #fff !important;
+}
+
+
+/* Hover effekti */
+.ant-table-tbody > tr:hover > td {
+  background-color: #1F3352 !important;
+}
