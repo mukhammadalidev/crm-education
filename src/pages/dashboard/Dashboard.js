@@ -6,15 +6,13 @@ import Link from 'antd/es/typography/Link'
 import { columns, data } from '../../data'
 import { SearchOutlined, UserOutlined, MoneyCollectOutlined, ShoppingFilled, WalletOutlined, PlusOutlined } from '@ant-design/icons'
 import { Option } from 'antd/es/mentions'
+import AddStudent from './AddStudent'
 const { Text } = Typography;
 function Dashboard() {
      const [isModalOpen, setIsModalOpen] = useState(false);
-      const [selectedValue, setSelectedValue] = useState(undefined);
 
-      const handleChange = (value) => {
-        console.log(`Selected: ${value}`);
-        setSelectedValue(value); // Store the selected value in your state
-      };
+
+    
       const showModal = () => {
         setIsModalOpen(true);
       };
@@ -26,19 +24,7 @@ function Dashboard() {
       };
     console.log(data);
 
-   
-    const onSubmit = (e) => {
-        e.preventDefault();
-        console.log('e', e.target[0].value);
-        console.log('e', e.target[1].value);
-        console.log('e', e.target[2].value);
-        console.log('e', e.target[3].value);
-        console.log('group', selectedValue);
-        console.log('e', e.target[5].value);
-        console.log('e', e.target[6].value);
 
-        // Handle form submission logic here
-      };
     
   return (
        <Content style={{background:"#141625",color: 'white'}}>
@@ -202,42 +188,12 @@ function Dashboard() {
                 </Button>
                  <Modal
         title="Add Stuent"
-        closable={{ 'aria-label': 'Custom Close Button' }}
+        // closable={{ 'aria-label': 'Custom Close Button' }}
         open={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}
       >
-          <form onSubmit={onSubmit}>
-                   <Input placeholder="Name" style={{ marginBottom: 16 }} />
-        <DatePicker placeholder="Date of Birth" style={{ marginBottom: 16, width: '100%' }} />
-        <Input placeholder="Telegram ID" style={{ marginBottom: 16 }} />
-        <Input placeholder="Course" style={{ marginBottom: 16 }} />
-        <Select
-          defaultValue="lucy"
-          style={{ width: 120 }}
-          onChange={handleChange}
-          options={[
-            { value: 'jack', label: 'Jack' },
-            { value: 'lucy', label: 'Lucy' },
-            { value: 'disabled', label: 'Disabled', disabled: true },
-            { value: 'Yiminghe', label: 'yiminghe' },
-          ]}
-      />
-        
-       Active:
-        <Slider
-        
-        defaultValue={0} tooltip={{ formatter: (value) => `${value}%` }} style={{ marginBottom: 16 }} />
-          <Space.Compact>
-      <Input style={{ width: '20%' }} defaultValue="+998" />
-      <Input style={{ width: '80%' }} defaultValue="26888888" />
-    </Space.Compact>
-    <br />
-    <br />
-        <Button type="primary" htmlType='submit' style={{ backgroundColor: '#5D5FEF', borderColor: '#5D5FEF', float: 'right' }}>
-          Submit
-        </Button>
-          </form>
+         <AddStudent />
       </Modal>
                   <Table 
                   pagination={{ pageSize: 5 }}
