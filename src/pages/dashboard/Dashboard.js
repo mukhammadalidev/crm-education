@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Avatar, Breadcrumb, Button, Card , Col, DatePicker, Flex, Input, Layout, Modal, Row, Select, Slider, Space, Table, Typography } from 'antd'
 import { Content, Header } from 'antd/es/layout/layout'
 import Link from 'antd/es/typography/Link'
@@ -7,12 +7,13 @@ import { columns, data } from '../../data'
 import { SearchOutlined, UserOutlined, MoneyCollectOutlined, ShoppingFilled, WalletOutlined, PlusOutlined } from '@ant-design/icons'
 import { Option } from 'antd/es/mentions'
 import AddStudent from './AddStudent'
+import { AppContext } from '../../App'
 const { Text } = Typography;
 function Dashboard() {
      const [isModalOpen, setIsModalOpen] = useState(false);
+    const {students,studentLength} = useContext(AppContext);
 
-
-    
+ 
       const showModal = () => {
         setIsModalOpen(true);
       };
@@ -107,7 +108,7 @@ function Dashboard() {
 
                     </Flex>
                     <Typography.Title level={3} style={{ color: 'white' }}>
-                    +45
+                    +43
                     </Typography.Title>
 
                     <Flex justify="space-between" align="center">
@@ -134,7 +135,7 @@ function Dashboard() {
 
                     </Flex>
                     <Typography.Title level={3} style={{ color: 'white' }}>
-                     145
+                    {studentLength? studentLength : 0}
                     </Typography.Title>
 
                     <Flex justify="space-between" align="center">
@@ -161,7 +162,7 @@ function Dashboard() {
 
                     </Flex>
                     <Typography.Title level={3} style={{ color: 'white' }}>
-                     $12,500.00
+                     ${studentLength * 400}.00
                     </Typography.Title>
 
                     <Flex justify="space-between" align="center">
@@ -192,13 +193,15 @@ function Dashboard() {
         open={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}
+        style={{minHeight:'max-content !important'}}
+        footer={null}
       >
          <AddStudent />
       </Modal>
                   <Table 
                   pagination={{ pageSize: 5 }}
                   rowClassName={()=> 'custom-row'}
-                  columns={columns} dataSource={data} />
+                  columns={columns}  dataSource={students} rowKey={'id'} />
                 </Col>
               </Row>
         

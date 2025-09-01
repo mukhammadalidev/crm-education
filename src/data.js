@@ -1,58 +1,87 @@
+
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { Button, Progress } from "antd";
+import axios from "axios";
+
 
 function editStudent(record) {
-  console.log("Edit student:", record);
+    console.log("Edit student:", record);
 }
 
 function deleteStudent(record) {
+    axios.delete(`http://localhost:8000/api/students/${record.id}/`).then(response => {
+   alert('Student deleted successfully');
+    // Ma'lumotlar muvaffaqiyatli o'chirildi, kerak bo'lsa, UI ni yangilash mumkin
+  }).catch(error => {
+    console.error('There was an error deleting the student!', error);
+  });
   console.log("Delete student:", record);
 }
+
 
 const columns = [
   {
     title: "Full Name",
     dataIndex: "name",
+    key: "name",
+    render: (value) => 
+      typeof value === "object" ? value.name : value, // agar obyekt bo‘lsa, ichidan name ni oladi
   },
   {
     title: "Date of Birth",
-    dataIndex: "dateOfBirth",
-    sorter: (a, b) => new Date(a.dateOfBirth) - new Date(b.dateOfBirth),
+    dataIndex: "birth_date",
+    key: "birth_date",
+    sorter: (a, b) => new Date(a.birth_date) - new Date(b.birth_date),
   },
   {
     title: "Telegram ID",
-    dataIndex: "telegramID",
-    sorter: (a, b) => a.telegramID.localeCompare(b.telegramID),
+    dataIndex: "telegram_username",
+    key: "telegram_username",
+    sorter: (a, b) => a.telegram_username.localeCompare(b.telegram_username),
   },
   {
     title: "Course",
     dataIndex: "course",
-    sorter: (a, b) => a.course.localeCompare(b.course),
+    key: "course",
+    render: (value) => (typeof value === "object" ? value.name : value),
+    sorter: (a, b) =>
+      (a.course?.name || a.course || "").localeCompare(
+        b.course?.name || b.course || ""
+      ),
   },
   {
     title: "Group",
     dataIndex: "group",
-    sorter: (a, b) => a.group.localeCompare(b.group),
+    key: "group",
+    render: (value) => (typeof value === "object" ? value.name : value),
+    sorter: (a, b) =>
+      (a.group?.name || a.group || "").localeCompare(
+        b.group?.name || b.group || ""
+      ),
   },
   {
     title: "Active",
     dataIndex: "active",
+    key: "active",
     render: (value) => (
       <Progress
         percent={value}
         size="small"
-        status={value === 100 ? "success" : value === 0 ? "exception" : "active"}
+        status={
+          value === 100 ? "success" : value === 0 ? "exception" : "active"
+        }
       />
     ),
   },
   {
     title: "Phone Number",
-    dataIndex: "phoneNumber",
-    sorter: (a, b) => a.phoneNumber.localeCompare(b.phoneNumber),
+    dataIndex: "phone_number",
+    key: "phone_number",
+    sorter: (a, b) => a.phone_number.localeCompare(b.phone_number),
   },
   {
     title: "Actions",
-    dataIndex: "actions",
+    key: "actions",
     render: (_, record) => (
       <div>
         <Button
@@ -75,6 +104,7 @@ const columns = [
     ),
   },
 ];
+
 
 const data = [
   {

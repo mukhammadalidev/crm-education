@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { createContext, useEffect, useState } from 'react'
 import Sider from 'antd/es/layout/Sider'
 import {CustomerServiceOutlined, DashboardOutlined, InfoCircleFilled, IssuesCloseOutlined, MoneyCollectOutlined, PlusOutlined, SearchOutlined, SettingOutlined, ShoppingFilled, UserOutlined, WalletOutlined} from '@ant-design/icons'
 import './App.css'
@@ -7,9 +7,25 @@ import Dashboard from './pages/dashboard/Dashboard'
 import { Layout } from 'antd'
 import { Link, Route, Routes } from 'react-router-dom'
 import Message from './pages/message/Message'
+import axios from 'axios'
+export const AppContext = createContext();
 function App() {
-   
+
+  const [students, setStudents] = React.useState([])
+  const [studentLength,setStudentsLenth] = useState(0)
+
+  useEffect(() => {
+    axios.get('http://localhost:8000/api/students/').then(response => {
+      setStudents(response.data)
+      setStudentsLenth(response.data.length)
+      console.log(response.data)
+      
+    }).catch(error => {
+      console.error('There was an error!', error);
+    })
+  })
   return (
+    <AppContext.Provider value={{students, setStudents,studentLength}}>
     <Layout style={{ minHeight: '100vh' }}>
      
    <Layout>
@@ -49,6 +65,7 @@ function App() {
      
      
     </Layout>
+    </AppContext.Provider>
   )
 }
 
